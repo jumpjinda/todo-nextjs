@@ -1,9 +1,15 @@
+import { FaHome } from "react-icons/fa";
 import { FaListUl } from "react-icons/fa";
 import { FaExclamation } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
 import { FaBullseye } from "react-icons/fa6";
 
 export const pageRoute = [
+  {
+    label: "Home",
+    route: "/",
+    icon: <FaHome />,
+  },
   {
     label: "All Tasks",
     route: "all-tasks",

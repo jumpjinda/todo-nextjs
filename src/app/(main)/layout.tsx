@@ -1,50 +1,41 @@
 "use client";
 
-import { pageRoute } from "@/lib/page-route";
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { SessionProviderWrapper } from "@/components/shared/session-provider-wrapper";
+import Navbar from "./_components/navbar";
+import Link from "next/link";
+import UserArea from "./_components/user-area";
+import CreateButton from "./_components/create-button";
+import AddNewTask from "./_components/add-new-task";
+import CreateTodoModal from "@/components/shared/create-todo-modal";
 
 export default function MainLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const router = useRouter();
-  const [activeRoute, setActiveRoute] = useState();
-
-  const handleActiveRoute = (route: string) => {
-    router.push(route);
-  };
-
   return (
-    <main className="w-full h-full bg-neutral-900 p-10 flex flex-col">
-      <header
-        onClick={() => router.push("/")}
-        className="w-fit text-4xl font-bold text-white mb-5 cursor-pointer"
-      >
-        Todo App
-      </header>
-      <div className="w-full h-full flex flex-row gap-x-10">
-        <nav className="w-[300px] rounded-lg flex flex-col justify-around items-center p-5 border border-neutral-700 bg-neutral-800">
-          <div className="w-full h-1/2">
-            <span>profile</span>
-          </div>
-          <div className="w-full h-1/2 flex flex-col gap-y-5">
-            {pageRoute.map((item) => (
-              <div
-                onClick={() => handleActiveRoute(item.route)}
-                className="flex items-center gap-x-3 text-neutral-500"
-              >
-                <div>{item.icon}</div>
-                <label>{item.label}</label>
-              </div>
-            ))}
-          </div>
-        </nav>
-        <div className="w-full rounded-lg border border-neutral-700 bg-neutral-800">
-          {children}
+    <SessionProviderWrapper>
+      <CreateTodoModal />
+      <main className="w-full h-full bg-neutral-900 p-10 flex flex-col">
+        <div className="flex justify-between">
+          <Link href="/">
+            <header className="w-fit text-4xl font-bold text-white mb-5 cursor-pointer">
+              Todo App
+            </header>
+          </Link>
+          <UserArea />
         </div>
-      </div>
-    </main>
+        <div className="w-full h-full flex flex-row gap-x-10 ">
+          <Navbar />
+          <div className="w-full rounded-lg border border-neutral-700 bg-neutral-800 px-5 py-3 overflow-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-y-5 gap-x-5 relative">
+              <CreateButton />
+              {children}
+              <AddNewTask />
+            </div>
+          </div>
+        </div>
+      </main>
+    </SessionProviderWrapper>
   );
 }
