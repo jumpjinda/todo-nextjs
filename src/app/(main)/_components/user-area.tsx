@@ -1,3 +1,5 @@
+"use client";
+
 import SignUpLoginPopup from "@/components/shared/sign-up-log-in-popup";
 import { signOut, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
@@ -12,8 +14,13 @@ const UserArea = () => {
   }, []);
 
   return (
-    <div className="flex items-center justify-center border w-[150px] h-[45px] p-3 rounded-lg bg-neutral-800 cursor-pointer">
-      {(session === undefined || isLoading) && <MoonLoader size={20} />}
+    <div className="flex items-center justify-center border w-fit h-[45px] p-3 rounded-lg bg-neutral-800 cursor-pointer ">
+      {(session === undefined || isLoading) && (
+        <MoonLoader
+          size={20}
+          color="white"
+        />
+      )}
       {session === null && <SignUpLoginPopup />}
       {session && (
         <div

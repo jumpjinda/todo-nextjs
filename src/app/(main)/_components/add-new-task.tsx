@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 const AddNewTask = () => {
   const { data: session } = useSession();
   const pathname = usePathname();
-  const { onOpen, onClose } = uesCreateTodo();
+  const { onOpen } = uesCreateTodo();
 
   if (!session) return;
 

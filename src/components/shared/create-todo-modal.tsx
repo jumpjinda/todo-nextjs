@@ -1,3 +1,5 @@
+"use client";
+
 import uesCreateTodo from "@/hooks/create-todo-hook";
 import { IoClose } from "react-icons/io5";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -24,10 +26,14 @@ import { pageRoute } from "@/lib/page-route";
 import { Textarea } from "../ui/textarea";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import { useContext } from "react";
+import { TodoContext } from "./todo-context";
+import { useRouter } from "next/navigation";
 
 const CreateTodoModal = () => {
   const { data: session } = useSession();
   const { isOpen, onClose } = uesCreateTodo();
+  const { getTodo } = useContext(TodoContext);
 
   const createTodoFormSchema = z.object({
     title: z.string().min(2, { message: "Minimum character is 2" }),
@@ -46,7 +52,11 @@ const CreateTodoModal = () => {
 
   const onSubmit = async (values: z.infer<typeof createTodoFormSchema>) => {
     const res = await axios.post("/api/todo", { ...values, session });
-    console.log(res.data);
+
+    if (res.status === 200) {
+      getTodo();
+      onClose();
+    }
   };
 
   if (isOpen) {
@@ -121,7 +131,10 @@ const CreateTodoModal = () => {
                               item.label !== "Completed!"
                           )
                           .map((filtered) => (
-                            <SelectItem value={filtered.route}>
+                            <SelectItem
+                              key={filtered.route}
+                              value={filtered.value}
+                            >
                               {filtered.label}
                             </SelectItem>
                           ))}

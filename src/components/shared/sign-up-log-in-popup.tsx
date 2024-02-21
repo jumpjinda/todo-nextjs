@@ -23,23 +23,6 @@ const SignUpLoginPopup = () => {
       <DialogTrigger className="text-rose-500 font-semibold hover:text-white">
         Sign up / Log in
       </DialogTrigger>
-      {/* {creatingUser && (
-        <DialogContent>
-          <div className="w-full h-full flex justify-center items-center text-3xl font-bold">
-            Creating User...
-          </div>
-        </DialogContent>
-      )}
-      {userCreated && (
-        <div className="w-full h-full flex justify-center items-center text-3xl font-bold">
-          User created!
-        </div>
-      )}
-      {loggingIn && (
-        <div className="w-full h-full flex justify-center items-center text-3xl font-bold">
-          Logging in...
-        </div>
-      )} */}
       <DialogContent>
         {creatingUser && (
           <div className="w-full h-full flex justify-center items-center text-3xl font-bold">

@@ -1,7 +1,7 @@
 const HomePage = () => {
   return (
-    <div className="p-5">
-      <div>
+    <div className="py-5 flex justify-center">
+      <div className="max-w-[500px]">
         <header className="text-center text-2xl font-bold text-neutral-300">
           This is Todo App Project
         </header>

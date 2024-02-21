@@ -8,26 +8,31 @@ export const pageRoute = [
   {
     label: "Home",
     route: "/",
+    value: "",
     icon: <FaHome />,
   },
   {
     label: "All Tasks",
-    route: "all-tasks",
+    route: "/all-tasks",
+    value: "all-tasks",
     icon: <FaListUl />,
   },
   {
     label: "Important!",
-    route: "important",
+    route: "/important",
+    value: "important",
     icon: <FaExclamation />,
   },
   {
     label: "Completed!",
-    route: "completed",
+    route: "/completed",
+    value: "completed",
     icon: <FaCheck />,
   },
   {
     label: "Do It Now",
-    route: "do-it-now",
+    route: "/do-it-now",
+    value: "do-it-now",
     icon: <FaBullseye />,
   },
 ];

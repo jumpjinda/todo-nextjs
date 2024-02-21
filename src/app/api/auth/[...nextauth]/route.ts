@@ -4,7 +4,7 @@ import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import prisma from "@/lib/prisma";
-import bcrypt, { hash } from "bcrypt";
+import bcrypt from "bcrypt";
 
 export const authOptions: AuthOptions = {
   // Prisma adapter allow you to auto create account, user, and session on database when you login with provider

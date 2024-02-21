@@ -1,10 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { hash } from "bcrypt";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../auth/[...nextauth]/route";
-import { getToken } from "next-auth/jwt";
-import { getSession } from "next-auth/react";
 
 export async function PUT(request: NextRequest) {
   const body = await request.json();
@@ -16,12 +12,58 @@ export async function PUT(request: NextRequest) {
   });
 
   if (user) {
-    const getAllTodo = await prisma.todo.findMany({
-      where: {
-        userId: user.id,
-      },
-    });
-    return NextResponse.json(getAllTodo, { status: 200 });
+    if (body.pathname === "/all-tasks") {
+      const getAllTodo = await prisma.todo.findMany({
+        where: {
+          userId: user.id,
+        },
+      });
+      return NextResponse.json(getAllTodo, { status: 200 });
+    }
+
+    if (body.pathname === "/important") {
+      const getImportant = await prisma.todo.findMany({
+        where: {
+          userId: user.id,
+          category: "important",
+          status: "Incomplete",
+        },
+      });
+
+      if (getImportant) {
+        return NextResponse.json(getImportant, { status: 200 });
+      }
+      return NextResponse.error;
+    }
+
+    if (body.pathname === "/completed") {
+      const getCompleted = await prisma.todo.findMany({
+        where: {
+          userId: user.id,
+          status: "Completed",
+        },
+      });
+      console.log(getCompleted);
+      if (getCompleted) {
+        return NextResponse.json(getCompleted, { status: 200 });
+      }
+      return NextResponse.error;
+    }
+
+    if (body.pathname === "/do-it-now") {
+      const getDoItNow = await prisma.todo.findMany({
+        where: {
+          userId: user.id,
+          category: "do-it-now",
+          status: "Incomplete",
+        },
+      });
+
+      if (getDoItNow) {
+        return NextResponse.json(getDoItNow, { status: 200 });
+      }
+      return NextResponse.error;
+    }
   }
 
   return NextResponse.error;
